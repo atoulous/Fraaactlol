@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 14:16:05 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/16 17:49:21 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/06/28 11:54:36 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ int					ft_nbrlen(int nb);
 char				*ft_strndup(const char *src, size_t n);
 char				*ft_itoa_base(int value, int base);
 char				*ft_convert_base(char *str, char *base_from, char *base_to);
+char				*ft_strdupfree(char *s1, char *s2);
 
 #endif

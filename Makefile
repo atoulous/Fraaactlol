@@ -6,14 +6,15 @@
 #    By: atoulous <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/17 21:56:41 by atoulous          #+#    #+#              #
-#    Updated: 2016/06/26 22:04:03 by atoulous         ###   ########.fr        #
+#    Updated: 2016/06/29 17:44:24 by atoulous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
 SRC = Sources/fractol.c Sources/lunchfract.c Sources/events.c \
-	  Sources/mandelbrot.c Sources/julia.c Sources/buddhabrot.c
+	  Sources/mandelbrot.c Sources/julia.c Sources/buddhabrot.c \
+	  Sources/ricobrot.c Sources/burningship.c Sources/sierpinski.c
 
 OBJ = $(SRC:.c=.o)
 

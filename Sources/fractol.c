@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 12:27:00 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/26 22:05:26 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/06/29 18:40:51 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	check_name(t_var *var, char *name)
 		FRACTOL = ft_strdup(name);
 	else if (!ft_strcmp(name, "Buddhabrot") || !ft_strcmp(name, "buddhabrot"))
 		FRACTOL = ft_strdup(name);
+	else if (!ft_strcmp(name, "Ricobrot") || !ft_strcmp(name, "ricobrot"))
+		FRACTOL = ft_strdup(name);
+	else if (!ft_strcmp(name, "Burningship") || !ft_strcmp(name, "burningship"))
+		FRACTOL = ft_strdup(name);
+	else if (!ft_strcmp(name, "Sierpinski") || !ft_strcmp(name, "sierpinski"))
+		FRACTOL = ft_strdup(name);
 	else
 	{
 		ft_putendl("Not a valid name, try Mandelbrot or Julia");
@@ -30,16 +36,44 @@ void	check_name(t_var *var, char *name)
 
 void	init_window(t_var *var)
 {
-	mlx_string_put(MLX, WIN, 0, 0, 0xFFFFFF, "1 2 3 4 5 6 7 8 9");
+	int		x;
+	int		y;
+
+	x = -1;
+	while (++x < WIDTH_WIN)
+	{
+		y = -1;
+		while (++y < 40)
+			mlx_pixel_put(MLX, WIN, x, y, 0x0);
+	}
+	mlx_string_put(MLX, WIN, 10, 0, 0xFFFFFF, "SPEED =");
+	mlx_string_put(MLX, WIN, 90, 0, 0xFFFFFF, ft_itoa(SPEED));
+	mlx_string_put(MLX, WIN, 10, 20, 0xFFFFFF, "ZOOM =");
+	mlx_string_put(MLX, WIN, 90, 20, 0xFFFFFF, ft_itoa(ZOOM * SPEED));
+	mlx_string_put(MLX, WIN, 200, 0, 0xFFFFFF, "X =");
+	mlx_string_put(MLX, WIN, 260, 0, 0xFFFFFF, ft_itoa(SX));
+	mlx_string_put(MLX, WIN, 200, 20, 0xFFFFFF, "Y =");
+	mlx_string_put(MLX, WIN, 260, 20, 0xFFFFFF, ft_itoa(SY));
+	mlx_string_put(MLX, WIN, 400, 0, 0xFFFFFF, "ITERMAX =");
+	mlx_string_put(MLX, WIN, 500, 0, 0xFFFFFF, ft_itoa(ITERMAX));
+	mlx_string_put(MLX, WIN, 400, 20, 0xFFFFFF, "FRACTAL =");
+	mlx_string_put(MLX, WIN, 500, 20, 0xFFFFFF, FRACTOL);
 }
 
 int		init_fractol(t_var *var)
 {
 	WIDTH_WIN = 1280;
 	HEIGHT_WIN = 1024;
+	SPEED = 1;
 	ZOOM = 0;
 	POS_X = 0;
 	POS_Y = 0;
+	NX = 0;
+	NY = 0;
+	IM = 0;
+	SX = 0;
+	SY = 0;
+	VARCOL = YELLOW;
 	MLX = mlx_init();
 	WIN = mlx_new_window(MLX, WIDTH_WIN, HEIGHT_WIN + 40, FRACTOL);
 	IMG = mlx_new_image(MLX, WIDTH_WIN, HEIGHT_WIN);
@@ -67,7 +101,7 @@ int		main(int ac, char **av)
 {
 	int		i;
 
-	if (ac < 2)
+	if (ac != 2)
 		ft_putendl("Usage: ./fractol <Mandelbrot/Julia/Buddhabrot>");
 	else
 	{

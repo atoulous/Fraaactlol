@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 19:10:57 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/26 22:24:06 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/06/29 19:35:10 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ void	fill_image(t_var *var)
 		g = 0x000000 >> 8;
 		b = 0x000000 >> 0;
 	}
-	DATA[Y * SIZELINE + X * (BPP / 8)] = r;
-	DATA[Y * SIZELINE + X * (BPP / 8) + 1] = g;
-	DATA[Y * SIZELINE + X * (BPP / 8) + 2] = b;
+	if (X >= 0 && X < WIDTH_WIN && Y > 0 && Y < HEIGHT_WIN)
+	{
+		DATA[Y * SIZELINE + X * (BPP / 8)] = r;
+		DATA[Y * SIZELINE + X * (BPP / 8) + 1] = g;
+		DATA[Y * SIZELINE + X * (BPP / 8) + 2] = b;
+	}
 }
 
 int		ft_lunchfrac(t_var *var)
@@ -43,6 +46,13 @@ int		ft_lunchfrac(t_var *var)
 		ft_julia(var);
 	if (!ft_strcmp(FRACTOL, "Buddhabrot") || !ft_strcmp(FRACTOL, "buddhabrot"))
 		ft_buddhabrot(var);
+	if (!ft_strcmp(FRACTOL, "Ricobrot") || !ft_strcmp(FRACTOL, "ricobrot"))
+		ft_ricobrot(var);
+	if (!ft_strcmp(FRACTOL, "Burningship")
+			|| !ft_strcmp(FRACTOL, "burningship"))
+		ft_burningship(var);
+	if (!ft_strcmp(FRACTOL, "Sierpinski") || !ft_strcmp(FRACTOL, "sierpinski"))
+		ft_sierpinski(var);
 	mlx_put_image_to_window(MLX, WIN, IMG, 0, 40);
 	return (0);
 }
