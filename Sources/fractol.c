@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 12:27:00 by atoulous          #+#    #+#             */
-/*   Updated: 2016/07/01 16:29:01 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/07/01 16:50:25 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	check_name(t_var *var, char *name)
 	{
 		ft_putstr("Not a valid name, try Mandelbrot, Julia, Buddhabrot, ");
 		ft_putendl("Ricobrot, Burningship or Sierpinski.");
-		ft_freefrac(var);
 		exit(EXIT_FAILURE);
 	}
 }
