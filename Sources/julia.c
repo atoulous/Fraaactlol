@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/26 20:04:59 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/29 18:37:40 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/06/30 18:08:04 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	ft_calcjulia(t_var *var)
 {
 	ZR = (ZOOM * SPEED + X - NX) / (ZOOM_X) + X1;
 	ZI = (ZOOM * SPEED + Y - NY) / (ZOOM_Y) + Y1;
-	CR = 0.285;
-	CI = 0.01;
+	CR = 0.285 + V;
+	CI = V ? 0.01 / V : 0.01;
 	I = -1;
 	while ((ZR * ZR + ZI * ZI) < 4 && ++I < ITERMAX)
 	{

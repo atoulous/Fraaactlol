@@ -6,7 +6,7 @@
 #    By: atoulous <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/17 21:56:41 by atoulous          #+#    #+#              #
-#    Updated: 2016/06/29 17:44:24 by atoulous         ###   ########.fr        #
+#    Updated: 2016/07/01 14:54:52 by atoulous         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ $(NAME): $(OBJ)
 	@make -C Libs/libft
 	@make -C Libs/minilibx_macos
 	@$(CF) $(LIBS) -lft -lmlx -framework OpenGL -framework AppKit -o $@ $^
-#   @"\033[32m[OK]\033[0m"#
+#   @echo "\033[32m[OK]\033[0m"#
 	@echo fractol well compiled
 
 all: $(NAME)

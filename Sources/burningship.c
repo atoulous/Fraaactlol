@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/29 17:29:14 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/29 18:58:39 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/06/30 14:56:44 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static void	ft_calcship(t_var *var)
 {
 	CR = (X + (ZOOM * SPEED) - NX) / (ZOOM_X) + X1;
 	CI = (Y + (ZOOM * SPEED) - NY) / (ZOOM_Y) + Y1;
-	ZR = 0;
-	ZI = 0;
+	ZR = 0 + V;
+	ZI = 0 + V / 2;
 	I = -1;
 	while ((ZR * ZR + ZI * ZI) < 4 && ++I < ITERMAX)
 	{

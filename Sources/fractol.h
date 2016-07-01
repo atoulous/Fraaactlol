@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 12:32:52 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/29 19:14:26 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/07/01 16:24:28 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../Libs/libft/libft.h"
 # include "mlx.h"
 # include <math.h>
+# include <pthread.h>
 # include <OpenCL/opencl.h>
 # include </System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/X.h>
 
@@ -61,12 +62,14 @@
 # define ZR var->zr
 # define ZI var->zi
 # define T var->t
+# define V var->v
 # define ZOOM_X var->zoom_x
 # define ZOOM_Y var->zoom_y
 # define NX var->nx
 # define NY var->ny
 # define SX var->sx
 # define SY var->sy
+# define VJ var->vj
 
 typedef struct		s_var
 {
@@ -75,6 +78,25 @@ typedef struct		s_var
 	void			*img;
 	char			*data;
 	char			*fractol;
+	double			zoom;
+	double			speed;
+	double			z;
+	double			pos_x;
+	double			pos_y;
+	double			x1;
+	double			x2;
+	double			y1;
+	double			y2;
+	double			cr;
+	double			ci;
+	double			zr;
+	double			zi;
+	double			t;
+	double			v;
+	double			zoom_x;
+	double			zoom_y;
+	double			nx;
+	double			ny;
 	int				color;
 	int				varcol;
 	int				bpp;
@@ -89,29 +111,13 @@ typedef struct		s_var
 	int				i;
 	int				sx;
 	int				sy;
-	long double		zoom;
-	long double		speed;
-	long double		z;
-	long double		pos_x;
-	long double		pos_y;
-	long double		x1;
-	long double		x2;
-	long double		y1;
-	long double		y2;
-	long double		cr;
-	long double		ci;
-	long double		zr;
-	long double		zi;
-	long double		t;
-	long double		zoom_x;
-	long double		zoom_y;
-	long double		nx;
-	long double		ny;
+	int				vj;
 }					t_var;
 
 int					ft_lunchfrac(t_var *var);
 int					ft_key(int keycode, t_var *var);
 int					ft_mouse(int button, int x, int y, t_var *var);
+int					ft_motion_mouse(int x, int y, t_var *var);
 int					ft_reset_fract(t_var *var);
 void				fill_image(t_var *var);
 void				init_window(t_var *var);

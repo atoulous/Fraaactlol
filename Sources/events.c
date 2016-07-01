@@ -6,31 +6,16 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/26 20:02:04 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/29 19:34:59 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/07/01 16:42:50 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		ft_reset_fract(t_var *var)
-{
-	SPEED = 1;
-	ZOOM = 0;
-	POS_X = 0;
-	POS_Y = 0;
-	NX = 0;
-	NY = 0;
-	IM = 0;
-	init_window(var);
-	return (0);
-}
-
 int		ft_mouse(int button, int x, int y, t_var *var)
 {
 	SX = x;
-	SY = y;
-	dprintf(1, "button==%d  ", button);
-	dprintf(1, "x==%d  y==%d\n", SX, SY);
+	SY = y + 40;
 	if ((button == 1 || button == 4) &&
 			(SX < WIDTH_WIN && SX > 0 && SY > 40 && SY < HEIGHT_WIN))
 	{
@@ -41,10 +26,21 @@ int		ft_mouse(int button, int x, int y, t_var *var)
 	if ((button == 2 || button == 6) &&
 			(SX < WIDTH_WIN && SX > 0 && SY < HEIGHT_WIN && SY > 40))
 	{
-		ZOOM -= ZOOM < 200 ? 50 : 100;
+		if (ZOOM > 0)
+			ZOOM -= ZOOM < 200 ? 50 : 100;
 		NX += WIDTH_WIN / 2 - SX;
 		NY += HEIGHT_WIN / 2 - SY;
 	}
+	if (button == 3)
+		VJ = VJ == 1 ? 0 : 1;
+	return (0);
+}
+
+int		ft_motion_mouse(int x, int y, t_var *var)
+{
+	if (VJ)
+		V = ((double)x - WIDTH_WIN / 4) / 10000;
+	y = 0;
 	return (0);
 }
 
@@ -66,7 +62,7 @@ void	ft_key_move(int keycode, t_var *var)
 	if (keycode == 78)
 	{
 		NX ? RESET : 0;
-		ZOOM -= ZOOM < 200 ? 50 : 100;
+		ZOOM -= ZOOM > 0 ? 50 : 0;
 	}
 }
 
@@ -90,6 +86,8 @@ int		ft_key(int keycode, t_var *var)
 	ft_refresh_image(var);
 	ft_key_move(keycode, var);
 	ft_switchfrac(keycode, var);
+	if (keycode == 269)
+		VJ = VJ == 1 ? 0 : 1;
 	keycode == 18 ? VARCOL = BLUE : COLOR;
 	keycode == 19 ? VARCOL = GREEN : COLOR;
 	keycode == 20 ? VARCOL = RED : COLOR;

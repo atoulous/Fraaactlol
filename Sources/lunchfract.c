@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 19:10:57 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/29 19:35:10 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/07/01 16:30:12 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,35 @@ int		ft_lunchfrac(t_var *var)
 	if (!ft_strcmp(FRACTOL, "Sierpinski") || !ft_strcmp(FRACTOL, "sierpinski"))
 		ft_sierpinski(var);
 	mlx_put_image_to_window(MLX, WIN, IMG, 0, 40);
+	init_window(var);
+	return (0);
+}
+
+int		ft_reset_fract(t_var *var)
+{
+	SPEED = 1;
+	ZOOM = 0;
+	POS_X = 0;
+	POS_Y = 0;
+	NX = 0;
+	NY = 0;
+	IM = 0;
+	V = 0;
 	return (0);
 }
 
 void	ft_refresh_image(t_var *var)
 {
-	mlx_destroy_image(MLX, IMG);
-	IMG = mlx_new_image(MLX, WIDTH_WIN, HEIGHT_WIN);
-	DATA = mlx_get_data_addr(IMG, &BPP, &SIZELINE, &ENDIAN);
+	X = -1;
+	while (++X < WIDTH_WIN)
+	{
+		Y = -1;
+		while (++Y < HEIGHT_WIN)
+		{
+			COLOR = 0x0;
+			fill_image(var);
+		}
+	}
 }
 
 void	ft_freefrac(t_var *var)

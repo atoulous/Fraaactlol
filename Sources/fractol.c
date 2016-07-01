@@ -6,7 +6,7 @@
 /*   By: atoulous <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/23 12:27:00 by atoulous          #+#    #+#             */
-/*   Updated: 2016/06/29 18:40:51 by atoulous         ###   ########.fr       */
+/*   Updated: 2016/07/01 16:29:01 by atoulous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	check_name(t_var *var, char *name)
 		FRACTOL = ft_strdup(name);
 	else
 	{
-		ft_putendl("Not a valid name, try Mandelbrot or Julia");
+		ft_putstr("Not a valid name, try Mandelbrot, Julia, Buddhabrot, ");
+		ft_putendl("Ricobrot, Burningship or Sierpinski.");
 		ft_freefrac(var);
 		exit(EXIT_FAILURE);
 	}
@@ -50,20 +51,22 @@ void	init_window(t_var *var)
 	mlx_string_put(MLX, WIN, 90, 0, 0xFFFFFF, ft_itoa(SPEED));
 	mlx_string_put(MLX, WIN, 10, 20, 0xFFFFFF, "ZOOM =");
 	mlx_string_put(MLX, WIN, 90, 20, 0xFFFFFF, ft_itoa(ZOOM * SPEED));
-	mlx_string_put(MLX, WIN, 200, 0, 0xFFFFFF, "X =");
-	mlx_string_put(MLX, WIN, 260, 0, 0xFFFFFF, ft_itoa(SX));
-	mlx_string_put(MLX, WIN, 200, 20, 0xFFFFFF, "Y =");
-	mlx_string_put(MLX, WIN, 260, 20, 0xFFFFFF, ft_itoa(SY));
-	mlx_string_put(MLX, WIN, 400, 0, 0xFFFFFF, "ITERMAX =");
-	mlx_string_put(MLX, WIN, 500, 0, 0xFFFFFF, ft_itoa(ITERMAX));
-	mlx_string_put(MLX, WIN, 400, 20, 0xFFFFFF, "FRACTAL =");
-	mlx_string_put(MLX, WIN, 500, 20, 0xFFFFFF, FRACTOL);
+	mlx_string_put(MLX, WIN, 200, 0, 0xFFFFFF, "CR =");
+	mlx_string_put(MLX, WIN, 260, 0, 0xFFFFFF, ft_itoa(CR));
+	mlx_string_put(MLX, WIN, 200, 20, 0xFFFFFF, "CI =");
+	mlx_string_put(MLX, WIN, 260, 20, 0xFFFFFF, ft_itoa(CI));
+	mlx_string_put(MLX, WIN, 350, 0, 0xFFFFFF, "ITERMAX =");
+	mlx_string_put(MLX, WIN, 450, 0, 0xFFFFFF, ft_itoa(ITERMAX));
+	mlx_string_put(MLX, WIN, 350, 20, 0xFFFFFF, "VJ =");
+	mlx_string_put(MLX, WIN, 450, 20, 0xFFFFFF, ft_itoa(VJ));
+	mlx_string_put(MLX, WIN, 550, 0, 0xFFFFFF, "FRACTAL =");
+	mlx_string_put(MLX, WIN, 650, 0, 0xFFFFFF, FRACTOL);
 }
 
 int		init_fractol(t_var *var)
 {
-	WIDTH_WIN = 1280;
-	HEIGHT_WIN = 1024;
+	WIDTH_WIN = 1000;
+	HEIGHT_WIN = 800;
 	SPEED = 1;
 	ZOOM = 0;
 	POS_X = 0;
@@ -73,6 +76,7 @@ int		init_fractol(t_var *var)
 	IM = 0;
 	SX = 0;
 	SY = 0;
+	V = 0;
 	VARCOL = YELLOW;
 	MLX = mlx_init();
 	WIN = mlx_new_window(MLX, WIDTH_WIN, HEIGHT_WIN + 40, FRACTOL);
@@ -93,6 +97,7 @@ void	ft_fractol(char *name)
 	mlx_loop_hook(MLX, ft_lunchfrac, var);
 	mlx_hook(WIN, KeyPress, KeyPressMask, ft_key, var);
 	mlx_hook(WIN, ButtonPress, ButtonPressMask, ft_mouse, var);
+	mlx_hook(WIN, MotionNotify, ButtonMotionMask, ft_motion_mouse, var);
 	mlx_loop(MLX);
 	ft_freefrac(var);
 }
@@ -101,13 +106,15 @@ int		main(int ac, char **av)
 {
 	int		i;
 
-	if (ac != 2)
-		ft_putendl("Usage: ./fractol <Mandelbrot/Julia/Buddhabrot>");
+	if (ac < 2)
+		ft_putendl("Usage: ./fractol <Mandelbrot/Julia/Buddhabrot/\
+Ricobrot/Burningship/Sierpinski>");
 	else
 	{
 		i = 0;
 		while (++i < ac)
-			ft_fractol(av[i]);
+			if (fork())
+				ft_fractol(av[i]);
 	}
 	return (0);
 }
